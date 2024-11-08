@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="1.2.0-alpha1" use-changelog="false" max-obj-count="4"
+	 last-position="0,0" last-zoom="1"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+
+<database name="patentDatabase" encoding="UTF8" lc-collate="en_US.UTF-8" lc-ctype="en_US.UTF-8" is-template="false" allow-conns="true">
+	<role name="postgres"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
+</schema>
+
+<table name="patent_holder" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="60" y="60"/>
+	<column name="asignee" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="city">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="state">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="country">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="address">
+		<type name="character varying" length="0"/>
+	</column>
+	<constraint name="patentHolder_pk" type="pk-constr" table="public.patent_holder">
+		<columns names="asignee" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="patent" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="400" y="60"/>
+	<column name="asignee_patent_holder">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="title">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="number">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="abstract">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="date">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="filed">
+		<type name="timestamp" length="0"/>
+	</column>
+</table>
+
+<constraint name="patent_holder_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.patent_holder" table="public.patent">
+	<columns names="asignee_patent_holder" ref-type="src-columns"/>
+	<columns names="asignee" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_patent_patent_holder" type="relfk" layers="0"
+	 custom-color="#a6eec8"
+	 src-table="public.patent"
+	 dst-table="public.patent_holder" reference-fk="patent_holder_fk"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
